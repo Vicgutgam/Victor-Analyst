@@ -2,7 +2,28 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+#El request me va a ayudar a importar el archivo de la URL y así permitirme descargarme el archivo una vez pulse el botón
+import requests
 
+
+
+## Para arracan streamlit hay que escribir en la terminal : streamlit run app.py
+
+# Pasos para conseguir el botón de descarga del CV:
+    # 1º Crear una referencia del la url
+    
+link_cv = 'blob:null/a565714e-faae-4df4-b61b-7dc2ba1e8385'
+
+    # 2º Crear el botón de descarga en la zona deseada.
+
+    #3º Configurar el botón 
+
+response = requests.get(link_cv)
+pdf_data = response.content
+
+
+
+# Configuración de la página
 st.set_page_config(
     page_title='VictorAnalyst',
     page_icon="🤖",
@@ -26,7 +47,7 @@ top_sidebar_placeholder.markdown('''
 st.sidebar.title('Index')
 
 
-page = st.sidebar.radio('', ['How Am I?','Night at the museum', 'King of the Pirates', 'Machine Learning', 'Visualization','Python', 'SQLstreamlit run nombre_del_archivo.py'])
+page = st.sidebar.radio('', ['How Am I?','Night at the museum', 'King of the Pirates', 'Machine Learning', 'Visualization','Python', 'SQL'])
 about_selection = ''
 
 
@@ -43,11 +64,21 @@ with st.spinner('Creando un mundo mejor...'):
 </p>
 ''', unsafe_allow_html=True)
         st.subheader('How Am I?')
-        st.markdown('#### "Akkurat" es una palabra que proviene de la expresión noruega "Akkurat nå"que significa "Justo ahora" y es que es justo ahora cuando más necesitamos una APP de estas características, que tenga los aspectos de un red social pero que a su vez tenga un gran potencial para poder ser una herramienta para cambiar el mundo y hacerlo más sotenible.')
+        st.markdown("####  👨‍🏫 I am a data analyst with more than ten years of experience in the field of teaching and culture. Now I am working on improving my knowledge in Machine Learning and advanced data visualization. If you´re wondering where I am, I´m probably taking a walk in the nearby mountains or participating in some cultural activity.")
 
-        st.markdown('## ¿Qué hace especial a Akkurat?')
-        st.markdown('#### Esta APP tiene un fin social, el luchar por un mundo mejor a través de la ecología y de la conexión de las personas a través de proyectos gustos, proyectos y visión de futuro común.')
-        
+        st.markdown('### Why did I create this?')
+        st.markdown('#### I recently had a job interview and I had a bit of a hard time figuring out what my skills are or what projects I have created.')
+
+        st.markdown('### My CV:')
+        st.markdown('#### Here is my CV in case you are interested in getting to know me a little better.')
+
+#Creación del botón de descarga:
+
+        st.download_button(
+    label="Descargar PDF",
+    data=pdf_data,
+    file_name="archivo.pdf",
+    mime="application/pdf")
         
 
 ### perfil
@@ -146,50 +177,7 @@ with st.spinner('Creando un mundo mejor...'):
         
 ### CONSEJOS        
         
-    elif page == 'Consejos':
-        # Title and logo
-        tamaño_letra = 24
-        st.markdown(f"<p style='font-size:{tamaño_letra}px;text-align:center;'>{random.choice(consejos)}</p>", unsafe_allow_html=True)
-        
-        col1, col2, col3 = st.columns(3)    
-        with col2:
-            st.button("¿Quieres otro consejo?", type="primary")
-            st.image(random.choice(fotos))  
-
-            
-            
- ## Perfiles de INSTAGRAM Y REDES SOCIALES
-                   
-    
-    elif page == 'Aprende':
-        about_selection = st.sidebar.radio('', ['Instagram', 'Youtube', 'Webs de interés'])
-        
-        
-        if about_selection == 'Instagram':
-            st.markdown("# Los perfiles más verdes")
-            columima, columtex = st.columns(2)
-            with columima : 
-                st.image("https://raw.githubusercontent.com/Vicgutgam/Final-proyect/main/Im%C3%A1genes/Hope.png?token=GHSAT0AAAAAACNF6SMVHIVWILQLGTTYSBKSZPQMHTQ",width=500)
-                            
-            with columtex :
-                st.write("### HOPE es una fundación encargada de llevar a la práctica y comunicar soluciones punteras de restauración de ecosistemas y captura de Carbono. Agricultura regenerativa, restauración de bosques, regeneración de ecosistemas marinos, formación sobre acción climática y divulgación medioambiental.")
-                st.link_button("Visitar perfil", "https://www.instagram.com/hope.videos/")
-
-            columima, columtex = st.columns(2)
-            with columima : 
-                st.image("https://raw.githubusercontent.com/Vicgutgam/Final-proyect/main/Im%C3%A1genes/Mossy%20Earth.png?token=GHSAT0AAAAAACNF6SMVSHZH6QHPBAUKH2PGZPQMIBA", width=500)
-            with columtex :
-                st.write("### Mossy Earth es una organización que se asocia con empresas ambientalmente conscientes para restaurar la naturaleza en una amplia gama de ecosistemas a través de iniciativas de reconstrucción. Si  equipo de biólogos conservacionistas ejecuta proyectos que obtienen el mayor retorno ambiental de la inversión, como la restauración de bosques de algas marinas en el océano, la construcción de plataformas para nidos de águila en las Tierras Altas de Escocia y la reforestación de talas ilegales en los Cárpatos del Sur.")
-                st.link_button("Visitar perfil", "https://www.instagram.com/mossy.earth/")
-            
-            
-            columima, columtex = st.columns(2)
-            with columima : 
-                st.image("https://raw.githubusercontent.com/Vicgutgam/Final-proyect/main/Im%C3%A1genes/Sungai%20Watch.png?token=GHSAT0AAAAAACNF6SMVYIK4Q3DAHCDNWFDUZPQMIJA",width=500)
-            with columtex :
-                st.write("#### Sungai Watch es un perfil único. Aquí vemos como el reciclaje se puede llevar a otro nivel, transformando la basura que inundaba los rios en sillas y otros utensilios que usamos en nuestro día a día. Todo esto acompañado por un desarrollo económico de las personas que sufrían los daños de esta contaminación.")
-                st.link_button("Visitar perfil","https://www.instagram.com/sungaiwatch/")
-  
+   
 
  ## Perfiles de YOUTUBE
 
@@ -306,4 +294,3 @@ linkedin_url = "https://www.linkedin.com/in/v%C3%ADctor-guti%C3%A9rrez-gamero-81
 st.sidebar.markdown(f"[![GitHub](https://img.shields.io/badge/GitHub-Profile-black?style=social&logo=github)]({github_url})")  
         
 st.sidebar.markdown(f"[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=social&logo=linkedin)]({linkedin_url})")
-pip install streamlit

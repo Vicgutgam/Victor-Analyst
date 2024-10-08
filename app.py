@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import base64
+import os
 
 #El request me va a ayudar a importar el archivo de la URL y así permitirme descargarme el archivo una vez pulse el botón
 import requests
@@ -12,7 +14,7 @@ import requests
 # Pasos para conseguir el botón de descarga del CV:
     # 1º Crear una referencia del la url
     
-link_cv = 'blob:null/a565714e-faae-4df4-b61b-7dc2ba1e8385'
+link_cv = 'https://raw.githubusercontent.com/Vicgutgam/Victor-Analyst/refs/heads/main/bilder/CV%20Victor%20Guti%C3%A9rrez.png'
 
     # 2º Crear el botón de descarga en la zona deseada.
 
@@ -28,6 +30,28 @@ st.set_page_config(
     page_title='VictorAnalyst',
     page_icon="🤖",
     layout='wide', )
+
+
+# Imagen para el fondo de pantalla
+
+def add_bg_from_local(image_file):
+        with open(image_file, "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read())
+        st.markdown(
+            f"""
+        <style>
+        .stApp {{
+            background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
+            background-size: cover
+        }}
+        </style>
+        """,
+            unsafe_allow_html=True
+        )
+        
+add_bg_from_local('fondo.jpg')
+
+
 
 
 
@@ -47,7 +71,7 @@ top_sidebar_placeholder.markdown('''
 st.sidebar.title('Index')
 
 
-page = st.sidebar.radio('', ['How Am I?','Night at the museum', 'King of the Pirates', 'Machine Learning', 'Visualization','Python', 'SQL'])
+page = st.sidebar.radio('', ['Who Am I?', 'Machine Learning', 'Visualization', 'SQL', 'Python'])
 about_selection = ''
 
 
@@ -55,15 +79,15 @@ about_selection = ''
 with st.spinner('Creando un mundo mejor...'):
     
     
-### PÁGINA  PRINCIPAL
-    if page == 'How Am I?':
+### Who am I?
+    if page == 'Who Am I?':
         st.markdown('''
                      <p align="center">
   <img src="https://raw.githubusercontent.com/Vicgutgam/Victor-Analyst/refs/heads/main/bilder/jeg.jpeg?token=GHSAT0AAAAAACXPZG5NORLLY6HD74Z7A7IYZXVVNTA" width="30%" alt="Víctor Gutiérrez Data Analyst">
   <br>
 </p>
 ''', unsafe_allow_html=True)
-        st.subheader('How Am I?')
+        st.subheader('Who Am I?')
         st.markdown("####  👨‍🏫 I am a data analyst with more than ten years of experience in the field of teaching and culture. Now I am working on improving my knowledge in Machine Learning and advanced data visualization. If you´re wondering where I am, I´m probably taking a walk in the nearby mountains or participating in some cultural activity.")
 
         st.markdown('### Why did I create this?')
@@ -75,31 +99,26 @@ with st.spinner('Creando un mundo mejor...'):
 #Creación del botón de descarga:
 
         st.download_button(
-    label="Descargar PDF",
+    label="Descargar CV",
     data=pdf_data,
-    file_name="archivo.pdf",
-    mime="application/pdf")
+    file_name="CV Víctor Gutiérrez.png",
+    mime="application/png")
         
 
 ### perfil
 
 
-# Página 'Tu Perfil'
-    elif page == 'Night at the museum':
-    # Title and logo   
-        st.markdown('''
-                     <p align="center">
-  <img src="https://raw.githubusercontent.com/Vicgutgam/Victor-Analyst/refs/heads/main/bilder/museum.jpg?token=GHSAT0AAAAAACXPZG5M4IXSVPZVNKWGH6ZOZXVWW4A" width="30%" alt="Akkurat">
-  <br>
-</p>
-''', unsafe_allow_html=True)     
-        st.markdown("## Introduction:")
-        st.markdown('#### This project has its origins in the practices of a data analysis Bootcamp. It is inspired by the typical "create your own story" notebooks where the journey of the adventure is the adventure itself, with the outcome being unimportant.')
+# Python'
+    elif page == 'Python':
+        about_selection = st.sidebar.radio('', ['Night at the museum', 'King of the Pirates' ])
+        if page == 'Night at the museum':
+            st.markdown("# ¿Cómo reducir tu huella de carbono en casa?")
 
-        st.markdown('## What does the code currently do?')
-        st.markdown('#### It is currently in a very primitive state and only includes a few functions related to the responses that the user can give. The code is developed in a very linear way, following the initial inspiration, but it already has some dictionaries introduced that I hope can be completed over time.')
-        
-        
+        elif page == 'King of the Pirates':
+            st.markdown("# ¿Cómo reducir tu huella de carbono en casa?")
+
+
+  
 ### PROYECTOS EN CASA
     elif page == 'Proyectos en casa':
         # Title and logo

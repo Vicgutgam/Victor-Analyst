@@ -1,3 +1,6 @@
+## Para arracan streamlit hay que escribir en la terminal : streamlit run app.py
+
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -9,7 +12,7 @@ import requests
 
 
 
-## Para arracan streamlit hay que escribir en la terminal : streamlit run app.py
+
 
 # Pasos para conseguir el botón de descarga del CV:
     # 1º Crear una referencia del la url
